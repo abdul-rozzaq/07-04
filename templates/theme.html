@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<style>
+    .container .message .owner {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+    }
+
+    .container .message .c-col .created_at {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .container .message .c-col .message-body {
+        width: max-content;
+    }
+</style>
+
+<div class="container">
+    <h2>{{ theme.title }} • {{ theme.owner.username }}</h2>
+
+    <div class="messages shadow p-4 rounded mb-3">
+
+        {% for msg in theme.messages.all %}
+
+        <div class="message d-flex my-3 gap-2 align-items-start">
+            <div class="owner">
+                {{ msg.sender|make_list|first }}
+            </div>
+            <div class="c-col">
+                <div class="c-row d-flex gap-2">
+                    <div class="message-body rounded p-2 px-2 border">{{ msg.text }}</div>
+
+                    {% if request.user == msg.sender %}
+                    <button type="button" class="btn btn-warning btn-floating edit-msg-btn" data-mdb-ripple-init
+                        data-mdb-ripple-color="dark" data-mdb-ripple-init data-mdb-modal-init
+                        data-mdb-target="#edit-message-modal" data-message-id="{{ msg.id }}"
+                        data-message-text="{{ msg.text }}">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    {% endif %}
+                </div>
+                <div class="created_at">{{ msg.created_at }}</div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    <div class="form shadow p-2 rounded">
+        <form method="POST" class="d-flex align-items-start gap-2">
+            {% csrf_token %}
+
+            <input type="text" class="form-control" placeholder="Habarni kiriting" name="text">
+            <button class="btn btn-primary" type="submit">
+                Yuborish
+            </button>
+        </form>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="edit-message-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post">{% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Habarni yangilash</h5>
+                    <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="message-id" value="" id="message-id">
+                    {{ form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-ripple-init
+                        data-mdb-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    const messageInput = document.querySelector('#id_text');
+    const messageIDInput = document.querySelector('#message-id');
+
+    document.querySelectorAll('.edit-msg-btn').forEach(button => {
+        button.addEventListener("click", (e) => {
+            messageInput.value = button.getAttribute('data-message-text')
+            messageIDInput.value = button.getAttribute('data-message-id')
+        });
+    });
+
+
+</script>
+
+
+
+{% endblock %}

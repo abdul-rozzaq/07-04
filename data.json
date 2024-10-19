@@ -1,0 +1,102 @@
+[
+    {
+        "model": "project.pizza",
+        "pk": 1,
+        "fields": {
+            "image": "pizza-images/margherita.jpg",
+            "title": "Margherita",
+            "description": "Classic pizza with fresh mozzarella, tomatoes, and basil.",
+            "price": 999
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 2,
+        "fields": {
+            "image": "pizza-images/pepperoni.jpg",
+            "title": "Pepperoni",
+            "description": "Pepperoni pizza with mozzarella and tomato sauce.",
+            "price": 1099
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 3,
+        "fields": {
+            "image": "pizza-images/bbq-chicken.jpg",
+            "title": "BBQ Chicken",
+            "description": "BBQ sauce, chicken, onions, and mozzarella.",
+            "price": 1299
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 4,
+        "fields": {
+            "image": "pizza-images/hawaiian.jpg",
+            "title": "Hawaiian",
+            "description": "Ham, pineapple, and mozzarella on a tomato base.",
+            "price": 1199
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 5,
+        "fields": {
+            "image": "pizza-images/veggie.jpg",
+            "title": "Veggie Delight",
+            "description": "A variety of fresh vegetables including bell peppers, onions, and mushrooms.",
+            "price": 1049
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 6,
+        "fields": {
+            "image": "pizza-images/meat-lovers.jpg",
+            "title": "Meat Lovers",
+            "description": "A hearty pizza loaded with pepperoni, sausage, ham, and bacon.",
+            "price": 1399
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 7,
+        "fields": {
+            "image": "pizza-images/buffalo-chicken.jpg",
+            "title": "Buffalo Chicken",
+            "description": "Spicy buffalo chicken with ranch and mozzarella.",
+            "price": 1349
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 8,
+        "fields": {
+            "image": "pizza-images/four-cheese.jpg",
+            "title": "Four Cheese",
+            "description": "A rich blend of mozzarella, cheddar, parmesan, and gorgonzola.",
+            "price": 1199
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 9,
+        "fields": {
+            "image": "pizza-images/white-pizza.jpg",
+            "title": "White Pizza",
+            "description": "Garlic cream sauce, spinach, and ricotta cheese.",
+            "price": 1250
+        }
+    },
+    {
+        "model": "project.pizza",
+        "pk": 10,
+        "fields": {
+            "image": "pizza-images/supreme.jpg",
+            "title": "Supreme",
+            "description": "Loaded with pepperoni, sausage, onions, bell peppers, and olives.",
+            "price": 1450
+        }
+    }
+]
