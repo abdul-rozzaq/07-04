@@ -6,6 +6,10 @@ from django.contrib.auth.decorators import login_required
 from project.models import Theme, Message
 from project.forms import UserRegisterForm, ThemeForm, MessageForm
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 @login_required(login_url="login")
 def home_view(request: WSGIRequest):
@@ -58,6 +62,42 @@ def theme_view(request: WSGIRequest, pk: int):
     context = {"theme": theme, "form": form, "theme_form": theme_form}
 
     return render(request, "theme.html", context)
+
+
+@login_required(login_url="login")
+def user_profile(request: WSGIRequest):
+
+    user = request.user
+
+    if request.method == "POST":
+
+        for key, value in request.POST.items():
+            print(key, value, hasattr(user, key), hasattr(user.profile, key))
+
+            if hasattr(user, key):
+                setattr(user, key, value)
+
+            if hasattr(user.profile, key):
+                setattr(user.profile, key, value)
+
+        user.profile.save()
+        user.save()
+
+    user = request.user
+
+    context = {"user": user}
+
+    return render(request, "profile.html", context)
+
+
+@login_required(login_url="login")
+def profile(request: WSGIRequest, pk: int):
+
+    user = get_object_or_404(User, pk=pk)
+
+    context = {"user": user}
+
+    return render(request, "profile.html", context)
 
 
 def register(request):

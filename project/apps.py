@@ -2,5 +2,10 @@ from django.apps import AppConfig
 
 
 class ProjectConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'project'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "project"
+
+    def ready(self) -> None:
+        import project.signals
+
+        return super().ready()

@@ -38,14 +38,13 @@
                 {{ msg.sender|make_list|first }}
             </div>
             <div class="c-col">
+                <div class="fw-bold">
+                    {{ msg.sender.username }}</div>
                 <div class="c-row d-flex gap-2">
                     <div class="message-body rounded p-2 px-2 border">{{ msg.text }}</div>
 
                     {% if request.user == msg.sender %}
-                    <button type="button" class="btn btn-warning btn-floating edit-msg-btn" data-mdb-ripple-init
-                        data-mdb-ripple-color="dark" data-mdb-ripple-init data-mdb-modal-init
-                        data-mdb-target="#edit-message-modal" data-message-id="{{ msg.id }}"
-                        data-message-text="{{ msg.text }}">
+                    <button type="button" class="btn btn-warning btn-floating edit-msg-btn" data-mdb-ripple-init data-mdb-ripple-color="dark" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#edit-message-modal" data-message-id="{{ msg.id }}" data-message-text="{{ msg.text }}">
                         <i class="fas fa-edit"></i>
                     </button>
                     {% endif %}
@@ -77,16 +76,14 @@
             <form method="post">{% csrf_token %}
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Habarni yangilash</h5>
-                    <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="message-id" value="" id="message-id">
                     {{ form.as_p }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-ripple-init
-                        data-mdb-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Save changes</button>
                 </div>
             </form>

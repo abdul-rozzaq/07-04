@@ -34,10 +34,25 @@
                         Mavzu qo'shish
                     </button>
 
-                    <a href="{% url 'logout' %}" data-mdb-ripple-init type="button" class="btn btn-danger">
-                        Logout
-                    </a>
+
+
+
+                    <div class="dropdown">
+                        <div class="bg-warning d-flex align-items-center justify-content-center text-light shadow user-select-none"
+                            style="width: 40px; height: 40px; border-radius: 50%;" id="dropdownMenuButton"
+                            data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
+                            {{ request.user.username|capfirst|make_list|first }}
+                        </div>
+
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a href="{% url 'logout' %}" type="button" class="dropdown-item text-light bg-danger"
+                                    data-mdb-ripple-init>Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
+
 
                 {% else %}
 

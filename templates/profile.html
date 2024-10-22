@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <h3 class="mb-3">Profile</h3>
+
+    <div class="content row g-2">
+        <div class="col-4">
+            <div class="card p-2 d-flex flex-column align-items-center py-4 mb-3">
+                <img src="{% static 'image/default-user.png' %}" alt="" class="rounded-circle w-50 d-block mb-2">
+                <h4 class="fw-bold mb-0">{{ user.get_full_name }}</h4>
+                <h5 class="fw-bold mb-0">@{{ user.username }}</h5>
+            </div>
+
+            <div class="card p-4 mb-3 gap-3">
+                <div class="d-flex justify-content-between align-items-center flex-row">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fab fa-telegram text-primary" style="font-size: 22px;"></i>
+                        <div class="fw-bold">Telegram</div>
+                    </div>
+                    <div class="fw-bold"><a href="https://t.me/@{{user.profile.telegram}}">@{{ user.profile.telegram }}</a></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center flex-row">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fab fa-instagram text-danger" style="font-size: 22px;"></i>
+                        <div class="fw-bold">Instagram</div>
+                    </div>
+                    <div class="fw-bold"><a href="https://www.instagram.com/{{user.profile.telegram}}">@{{ user.profile.instagram }}</a></div>
+                </div>
+            </div>
+
+            {% if request.user == user %}
+            <div class="btn btn-primary w-100 py-3" data-mdb-modal-init data-mdb-target="#update-modal">
+                O'zgartirish
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-8">
+            <div class="shadow border p-2 d-flex flex-column">
+
+                {% for theme in user.themes.all %}
+
+                {% if forloop.counter > 1 %}
+                <hr class="my-1" />
+                {% endif %}
+
+                <a href="{% url 'theme_view' theme.pk %}" class="p-2 d-flex">
+                    <div class="w-50 fw-bold">Mavzu: {{ theme.title }}</div>
+                    <div class="w-50">Owner: {{ theme.owner.username }}</div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% if request.user == user %}
+<div class="modal fade" id="update-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST"> {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Ma'lumotlarni yangilash</h5>
+                    <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div data-mdb-input-init class="form-outline mb-2">
+                        <input type="text" id="first-name" class="form-control" value="{{ request.user.first_name }}" name="first_name" />
+                        <label class="form-label" for="first-name">First name</label>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-2">
+                        <input type="text" id="last-name" class="form-control" value="{{ request.user.last_name }}" name="last_name" />
+                        <label class="form-label" for="last-name">Last name</label>
+                    </div>
+                    <div class="mb-2">
+                        <label class="visually-hidden" for="inlineFormInputGroupUsername">Telegram</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="fab fa-telegram text-primary" style="font-size: 22px;"></i>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Telegram" value="{{ request.user.profile.telegram }}" name="telegram" />
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="visually-hidden" for="inlineFormInputGroupUsername">Instagram</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="fab fa-instagram text-primary" style="font-size: 22px;"></i>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Instagram" value="{{ request.user.profile.instagram }}" name="instagram" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+{% endblock content %}
